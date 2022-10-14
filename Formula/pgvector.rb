@@ -5,7 +5,7 @@ class Pgvector < Formula
   sha256 "d22439cb40b9cb28323aa38521a2fc807f08a86daf05d36f08bcf45b5f1b7221"
   license "PostgreSQL"
 
-  depends_on "postgresql"
+  depends_on "postgresql@14"
 
   def install
     system "make"

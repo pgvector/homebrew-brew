@@ -7,15 +7,33 @@ class Pgvector < Formula
 
   depends_on "postgresql@14"
 
+  def postgresql
+    Formula["postgresql@14"]
+  end
+
   def install
+    ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
+
     system "make"
-
-    mkdir "stage"
-    system "make", "install", "DESTDIR=#{buildpath}/stage"
-
-    lib.install Dir["stage/**/lib/*"]
+    (lib/postgresql.name).install "vector.so"
+    (share/postgresql.name/"extension").install "vector.control"
+    (share/postgresql.name/"extension").install Dir["sql/vector--*.sql"]
   end
 
   test do
+    pg_ctl = postgresql.opt_bin/"pg_ctl"
+    psql = postgresql.opt_bin/"psql"
+    port = free_port
+
+    system pg_ctl, "initdb", "-D", testpath/"test"
+    (testpath/"test/postgresql.conf").write <<~EOS, mode: "a+"
+      port = #{port}
+    EOS
+    system pg_ctl, "start", "-D", testpath/"test", "-l", testpath/"log"
+    begin
+      system psql, "-p", port.to_s, "-c", "CREATE EXTENSION vector;", "postgres"
+    ensure
+      system pg_ctl, "stop", "-D", testpath/"test"
+    end
   end
 end

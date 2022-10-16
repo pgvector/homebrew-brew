@@ -1,5 +1,6 @@
 BSD 2-Clause License
 
+Copyright (c) 2009-present, Homebrew contributors
 Copyright (c) 2021-present, Andrew Kane
 All rights reserved.
 

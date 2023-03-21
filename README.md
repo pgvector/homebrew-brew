@@ -1,7 +1,7 @@
 # Homebrew Tap
 
-[pgvector](https://github.com/pgvector/pgvector) is now available in Homebrew Core.
+[pgvector](https://github.com/pgvector/pgvector) has been migrated to Homebrew Core, so this tap is no longer needed. You can remove it with:
 
 ```sh
-brew install pgvector
+brew untap pgvector/brew
 ```

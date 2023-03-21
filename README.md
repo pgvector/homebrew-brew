@@ -1,7 +1,7 @@
 # Homebrew Tap
 
-[pgvector](https://github.com/pgvector/pgvector) - Open-source vector similarity search for Postgres
+[pgvector](https://github.com/pgvector/pgvector) is now available in Homebrew Core.
 
 ```sh
-brew install pgvector/brew/pgvector
+brew install pgvector
 ```
